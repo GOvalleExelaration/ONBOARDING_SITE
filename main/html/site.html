@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Testing!</title>
+        <title>Onboarding Website - Gabriel</title>
         <script src="/Onboarding%20Project/ONBOARDING_SITE/main/javascript/main.js"></script>
     </head>
     <body>
-        <h1>Testing.</h1>
+        <h2>Countries</h2>
+        <select name="countries" id="dropdownCountry" onchange = "openDropdownStates()"></select>
+        <br>
+        <h2>States</h2>
+        <select name="countries" id="dropdownStates"></select>
+        <br>
+        <h2>Add A Country</h2>
+        <label for="countryName">Input the new country's name: </label>
+        <input type="text" id="countryName" name="countryName">
+        <br>
+        <br>
+        <label for="countryCode">Input the new country's code:  </label>
+        <input type="text" id="countryCode" name="countryCode">
+        <br>
+        <br>
+        <button type="button" id="addNewCountryButton" onclick="addNewCountry()">Create New Country</button>
+
+        <h2>Add A State</h2>
+        <label for="stateName">Input the new state's name: </label>
+        <input type="text" id="stateName" name="stateName">
+        <br>
+        <br>
+        <label for="stateCode">Input the new state's code:  </label>
+        <input type="text" id="stateCode" name="stateCode">
+        <br>
+        <br>
+        <label for="">Select the country the state belongs to:</label>
+        <select name="parentCountry" id="parentCountry"></select>
+        <br>
+        <br>
+        <button type="button" id="addNewStateButton" onclick="">Create New State</button>
     </body>
 </html>
