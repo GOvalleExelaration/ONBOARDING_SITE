@@ -1,9 +1,7 @@
 let countriesURL = 'https://xc-countries-api.herokuapp.com/api/countries/';
 
-function populateDropdown(inputArray, elementName, nameColumn, valueColumn){
+function sortCountriesAndStatesByName(inputArray){
     inputArray.sort(function (a, b){
-        console.log(a);
-        console.log(b);
         if (a.name > b.name){
             return 1;
         }
@@ -12,6 +10,12 @@ function populateDropdown(inputArray, elementName, nameColumn, valueColumn){
         }
         return 0;
     })
+    return inputArray;
+}
+
+function populateDropdown(inputArray, elementName, nameColumn, valueColumn){
+    inputArray = sortCountriesAndStatesByName(inputArray);
+
     for (let i = 0; i < inputArray.length; i++){
         var select = document.getElementById(elementName);
         var option = document.createElement('option');
@@ -44,14 +48,42 @@ function openDropdownStates(){
 }
 
 function addNewCountry(){
-    fetch(countriesURL)
-    .then((response) => response.json())
-    .then((data) => {        
-        let newCountryID = data.length;
-        let newCountryName = document.getElementById("countryName").value;
-        let newCountryCode = document.getElementById("countryCode").value;
-        let newCountryEntry = '{"id":' + newCountryID + ',"code":"'+ newCountryCode + '","name":"' + newCountryName + '"}'
-        console.log(newCountryEntry);
+    
+    fetch(countriesURL, {
+        method: "POST",
+    
+        body: JSON.stringify({
+            code: document.getElementById("countryCode").value,
+            name: document.getElementById("countryName").value
+        }),
+
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
     })
+    
+    .then(response => response.json())
+    .then(json => console.log(json));
+    
+}
+
+function addNewState(){
+    let statesURL = 'https://xc-countries-api.herokuapp.com/api/states/';
+    fetch(statesURL, {
+        method: "POST",
+    
+        body: JSON.stringify({
+            code: document.getElementById("stateCode").value,
+            name: document.getElementById("stateName").value,
+            countryId: document.getElementById("parentCountry").value
+        }),
+
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    
+    .then(response => response.json())
+    .then(json => console.log(json));
     
 }
